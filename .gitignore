@@ -7,3 +7,8 @@ venv
 data
 
 .env
+/node_modules
+public
+/doccano-env/*
+
+Data_labeling/doccano-env/*

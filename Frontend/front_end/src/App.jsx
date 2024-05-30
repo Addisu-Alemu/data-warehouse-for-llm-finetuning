@@ -1,15 +1,20 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {data} from "./data.js"
-
-
+import axios from "axios"
 import './App.css'
-
+import Api_using_axios from './Components/Api_using_axios.jsx'
 function App() {
-const [count, setCount] = useState(0)
-console.log(data)
+const [search, setSearch] = useState("")
+console.log(search)
   return (
     <>
-     <thead>
+    <div className='m-auto w3/4'>
+  <form className="search-container">
+    <input className='input' onChange={(e) =>setSearch(e.target.value)} type="search" placeholder="Search" aria-label="Search" />
+    <button className='button' type="submit">Search</button>
+</form>
+
+     <thead className='outer_table'>
         <tr>
             <th>_id</th>
             <th>url</th>
@@ -22,8 +27,10 @@ console.log(data)
             <th>language</th>
         </tr>
       </thead>
-      <tbody >
-        {data.map((item) => (
+      <tbody className='outer_table' >
+        {data.filter((item) => {
+          return search.toLocaleLowerCase() == "" ? item : item.text.toLowerCase().includes(search);
+        }).map((item) => (
           <tr>
             <td>{item._id}</td>
             <td>{item.url}</td>
@@ -37,6 +44,8 @@ console.log(data)
           </tr>
         ))}
       </tbody>
+      </div>
+      {/* < Api_using_axios /> */}
     </>
   )
 }
